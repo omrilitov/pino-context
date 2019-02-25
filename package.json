@@ -1,6 +1,6 @@
 {
   "name": "pino-context",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "a pino wrapper for logs with some context",
   "main": "lib/index.js",
   "scripts": {
