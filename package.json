@@ -4,7 +4,7 @@
   "description": "a pino wrapper for logs with some context",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint lib",
+    "lint": "eslint .",
     "test": "run-p lint"
   },
   "engines": {
@@ -28,15 +28,14 @@
   },
   "homepage": "https://github.com/omrilitov/pino-context#readme",
   "dependencies": {
-    "pino": "^5.13.2"
-  },
-  "peerDependencies": {
-    "async-local-storage": "^2.3.1"
+    "async-local-storage": "^2.3.1",
+    "pino": "^5.13.5"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
-    "eslint-config-noamokman": "^9.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-xo": "^0.27.2",
     "eslint-plugin-import": "^2.18.2",
+    "express": "^4.17.1",
     "npm-run-all": "^4.1.5"
   }
 }

@@ -3,7 +3,7 @@ A tool to give some context to your logs.
 
 ## Installation
 ```bash
-$ [sudo] npm install pino-context async-local-storage
+$ [sudo] npm install pino-context
 ```
 
 ## Usage
@@ -12,21 +12,24 @@ $ [sudo] npm install pino-context async-local-storage
 #### Express
 ``` js
 const express = require('express');
-const logger = require('pino-context')();
-const {addContext} = require('pino-context');
-const als = require('async-local-storage');
+const {createLogger, addContext} = require('pino-context');
+const expressScopeMiddleware = require('pino-context/integrations/express');
+const logger = createLogger();
 const app = express();
 
-als.enable();
+app.use(expressScopeMiddleware());
 
 app.use((req, res, next) => {
-  als.scope();
   addContext('requestId', 'unique identifier'); // Generate some unique identifier
   next();
 });
 
 app.use((req, res, next) => {
   logger.info('This is a log');
+  next();
+});
+
+app.use((req, res, next) => {
   addContext('url', req.url);
   next();
 });
@@ -45,14 +48,14 @@ Will output
 ``` js
 {"level":30,"time":1551190582956,"msg":"Listening","pid":13031,"context":{},"v":1}
 {"level":30,"time":1551190586342,"msg":"This is a log","pid":13031,"context":{"requestId":"unique identifier"},"v":1}
-{"level":30,"time":1551190586342,"msg":"This is another log","pid":13031,"context":{"url":"/","requestId":"unique identifier"},"v":1}
+{"level":30,"time":1551190586342,"msg":"This is another log","pid":13031,"context":{"requestId":"unique identifier","url":"/"},"v":1}
 ```
 
 #### Using with existing pino instance
 
 ``` js
 const instance = require('pino')();
-const logger = require('pino-context')(instance);
+const logger = require('pino-context').createLogger(instance);
 
 logger.info('Will use the previous instance');
 ```
