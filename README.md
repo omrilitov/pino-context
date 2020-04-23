@@ -12,9 +12,10 @@ $ [sudo] npm install pino-context
 #### Express
 ``` js
 const express = require('express');
-const {createLogger, addContext} = require('pino-context');
+const pino = require('pino');
+const {wrapLogger, addContext} = require('pino-context');
 const expressScopeMiddleware = require('pino-context/integrations/express');
-const logger = createLogger();
+const logger = wrapLogger(pino());
 const app = express();
 
 app.use(expressScopeMiddleware());
@@ -49,15 +50,6 @@ Will output
 {"level":30,"time":1551190582956,"msg":"Listening","pid":13031,"context":{},"v":1}
 {"level":30,"time":1551190586342,"msg":"This is a log","pid":13031,"context":{"requestId":"unique identifier"},"v":1}
 {"level":30,"time":1551190586342,"msg":"This is another log","pid":13031,"context":{"requestId":"unique identifier","url":"/"},"v":1}
-```
-
-#### Using with existing pino instance
-
-``` js
-const instance = require('pino')();
-const logger = require('pino-context').createLogger(instance);
-
-logger.info('Will use the previous instance');
 ```
 
 ## Related
