@@ -28,14 +28,14 @@
   },
   "homepage": "https://github.com/omrilitov/pino-context#readme",
   "dependencies": {
-    "async-local-storage": "^2.3.1",
-    "pino": "^5.13.5"
+    "async-local-storage": "^2.3.1"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-config-xo": "^0.27.2",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint": "^6.8.0",
+    "eslint-config-xo": "^0.29.1",
+    "eslint-plugin-import": "^2.20.2",
     "express": "^4.17.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "pino": "^6.2.0"
   }
 }

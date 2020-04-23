@@ -1,12 +1,14 @@
 const express = require('express');
-const {addContext, createLogger} = require('../');
+const pino = require('pino');
+const {addContext, wrapLogger} = require('../');
 const expressScopeMiddleware = require('../integrations/express');
-const logger = createLogger();
+const logger = wrapLogger(pino());
 const app = express();
 
 app.use(expressScopeMiddleware());
 
 app.use((req, res, next) => {
+  logger.info('This is an empty log');
   addContext('requestId', 'unique identifier'); // Generate some unique identifier
   next();
 });
@@ -22,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  logger.info('This is another log');
+  logger.info({hello: 'world'}, 'This is another log');
   res.send('Hello World');
 });
 
